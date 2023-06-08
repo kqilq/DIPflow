@@ -1,3 +1,5 @@
+#authors: Sean Varie, Cheung Ka Yi (Kaila)
+
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -9,6 +11,7 @@ import time
 from datetime import datetime
 from beebotte import *
 import plotly.express as px # interactive charts
+from pprint import pprint
 
 API_KEY = "HjYV37tn0gFaYWqGA3pD394c"
 SECRET_KEY = "MKFzf3suZGmMHkEiQV2wHT9c4RCmBpXB"
@@ -152,6 +155,19 @@ with st.form("Bike Station Finder"):
        st.write("The closest bike station with available bikes is at latitude:" + str(bikeStationsDF['latitude'][closestBikeIndex]) + " longitude:" + str(bikeStationsDF['longitude'][closestBikeIndex]))
        st.map(bikeStationsDF.iloc[[closestBikeIndex]])
        
+ 
+API_key = "ff7451e3f8f59f95b1c2e5cdedf711a8"
+base_url = "http://api.openweathermap.org/data/2.5/weather?"
+ 
+city_name = 'Montpellier'
+Final_url = base_url + "appid=" + API_key + "&q=" + city_name
+ 
+weather_data = requests.get(Final_url).json()
+
+st.write("In Montpellier the temperature is: " + str(weather_data['main']['temp']-273.15) + "C, but feels like: " + str(weather_data['main']['feels_like']-273.15) + "C")
+st.write("The weather is: " + weather_data['weather'][0]['description'])
+
+
 
 
 
